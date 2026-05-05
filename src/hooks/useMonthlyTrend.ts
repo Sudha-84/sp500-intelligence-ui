@@ -1,0 +1,1 @@
+export { useMonthlyTrend } from './useData'
