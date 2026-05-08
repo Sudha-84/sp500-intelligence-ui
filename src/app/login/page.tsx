@@ -1,12 +1,12 @@
 'use client'
 
-import { useState } from 'react'
+import { Suspense, useState } from 'react'
 import { useAuth } from '@/hooks/useAuth'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { TrendingUp, Lock, Mail, Eye, EyeOff, ArrowRight } from 'lucide-react'
 
-export default function LoginPage() {
+function LoginContent() {
   const { signIn, isLoading } = useAuth()
   const router       = useRouter()
   const searchParams = useSearchParams()
@@ -121,5 +121,13 @@ export default function LoginPage() {
         </p>
       </motion.div>
     </div>
+  )
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense>
+      <LoginContent />
+    </Suspense>
   )
 }
