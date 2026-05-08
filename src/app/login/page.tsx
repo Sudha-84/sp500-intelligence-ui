@@ -12,10 +12,10 @@ export default function LoginPage() {
   const searchParams = useSearchParams()
   const verified     = searchParams.get('verified') === '1'
 
-  const [email, setEmail]     = useState('')
+  const [email, setEmail]       = useState('')
   const [password, setPassword] = useState('')
-  const [showPwd, setShowPwd] = useState(false)
-  const [error, setError]     = useState('')
+  const [showPwd, setShowPwd]   = useState(false)
+  const [error, setError]       = useState('')
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -90,7 +90,9 @@ export default function LoginPage() {
                        style={{ background: 'var(--surface-3)', border: '1px solid var(--border-subtle)', color: 'var(--text-primary)' }} />
                 <button type="button" onClick={() => setShowPwd(!showPwd)}
                         className="absolute right-3 top-1/2 -translate-y-1/2">
-                  {showPwd ? <EyeOff size={14} style={{ color: 'var(--text-muted)' }} /> : <Eye size={14} style={{ color: 'var(--text-muted)' }} />}
+                  {showPwd
+                    ? <EyeOff size={14} style={{ color: 'var(--text-muted)' }} />
+                    : <Eye    size={14} style={{ color: 'var(--text-muted)' }} />}
                 </button>
               </div>
             </div>
@@ -110,7 +112,7 @@ export default function LoginPage() {
         </div>
 
         <p className="text-center text-xs mt-6" style={{ color: 'var(--text-muted)' }}>
-          Don't have an account?{' '}
+          Don&apos;t have an account?{' '}
           <a href="/signup" style={{ color: 'var(--accent)' }}>Create one</a>
         </p>
 
@@ -121,4 +123,3 @@ export default function LoginPage() {
     </div>
   )
 }
-
