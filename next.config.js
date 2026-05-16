@@ -1,8 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'standalone',
   reactStrictMode: true,
 
-  // API routes proxy to Java microservices
+  // API routes proxy to Java microservices via Next.js server-side rewrites
   async rewrites() {
     return [
       {
@@ -38,3 +39,4 @@ const nextConfig = {
 };
 
 module.exports = nextConfig;
+
