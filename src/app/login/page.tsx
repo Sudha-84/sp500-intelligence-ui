@@ -149,7 +149,28 @@ export default function LoginPage() {
           </form>
         </div>
 
-        <p className="text-center text-xs mt-6" style={{ color: 'var(--text-muted)' }}>
+        {/* Signup link — navigates to Cognito hosted UI */}
+        {(() => {
+          const domain   = process.env.NEXT_PUBLIC_COGNITO_DOMAIN   ?? ''
+          const clientId = process.env.NEXT_PUBLIC_COGNITO_CLIENT_ID ?? ''
+          const appUrl   = process.env.NEXT_PUBLIC_APP_URL           ?? ''
+          const signupUrl = domain
+            ? `https://${domain}/signup?client_id=${clientId}&response_type=code&scope=email+openid+profile&redirect_uri=${encodeURIComponent(appUrl + '/dashboard')}`
+            : '#'
+          return (
+            <p className="text-center text-xs mt-4" style={{ color: 'var(--text-muted)' }}>
+              Don&apos;t have an account?{' '}
+              <a href={signupUrl}
+                 style={{ color: 'var(--accent)', textDecoration: 'none' }}
+                 onMouseEnter={e => (e.currentTarget.style.textDecoration = 'underline')}
+                 onMouseLeave={e => (e.currentTarget.style.textDecoration = 'none')}>
+                Create one →
+              </a>
+            </p>
+          )
+        })()}
+
+        <p className="text-center text-xs mt-3" style={{ color: 'var(--text-muted)' }}>
           Secured by Amazon Cognito · xAI Grok sentiment analysis
         </p>
       </motion.div>
