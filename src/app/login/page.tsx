@@ -153,9 +153,13 @@ export default function LoginPage() {
         {(() => {
           const domain   = process.env.NEXT_PUBLIC_COGNITO_DOMAIN   ?? ''
           const clientId = process.env.NEXT_PUBLIC_COGNITO_CLIENT_ID ?? ''
-          const appUrl   = process.env.NEXT_PUBLIC_APP_URL           ?? ''
+          // Strip trailing slash so redirect_uri matches exactly what's registered in Cognito
+          const appUrl   = (process.env.NEXT_PUBLIC_APP_URL ?? '').replace(/\/$/, '')
+          // redirect_uri must exactly match one of the Allowed Callback URLs in the
+          // Cognito App Client. Scopes separated by %20 (not +) per OAuth 2.0 spec.
+          const redirectUri = encodeURIComponent(appUrl + '/dashboard')
           const signupUrl = domain
-            ? `https://${domain}/signup?client_id=${clientId}&response_type=code&scope=email+openid+profile&redirect_uri=${encodeURIComponent(appUrl + '/dashboard')}`
+            ? `https://${domain}/signup?client_id=${clientId}&response_type=code&scope=email%20openid%20profile&redirect_uri=${redirectUri}`
             : '#'
           return (
             <p className="text-center text-xs mt-4" style={{ color: 'var(--text-muted)' }}>
